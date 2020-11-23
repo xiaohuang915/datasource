@@ -2,6 +2,7 @@ package com.huang.datasource.mybatis;
 
 import com.huang.datasource.config.OrderConfig;
 import com.huang.datasource.config.PayConfig;
+import com.huang.datasource.util.DataSourceUtil;
 import com.mysql.cj.jdbc.MysqlXADataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -25,33 +26,14 @@ import java.sql.SQLException;
 @Configuration
 @MapperScan(basePackages = "com.huang.datasource.mapper.pay", sqlSessionTemplateRef = "paySqlSessionTemplate")
 public class PayMybatisConfig {
-    @Bean(name = "payDataSource")
-    public DataSource testDataSource(PayConfig payConfig) throws SQLException {
-        MysqlXADataSource mysqlXaDataSource = new MysqlXADataSource();
-        mysqlXaDataSource.setUrl(payConfig.getUrl());
-        mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
-        mysqlXaDataSource.setPassword(payConfig.getPassword());
-        mysqlXaDataSource.setUser(payConfig.getUsername());
-        mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
-
-        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
-        xaDataSource.setXaDataSource(mysqlXaDataSource);
-        xaDataSource.setUniqueResourceName("payDataSource");
-        xaDataSource.setMinPoolSize(payConfig.getMinPoolSize());
-        xaDataSource.setMaxPoolSize(payConfig.getMaxPoolSize());
-        xaDataSource.setMaxLifetime(payConfig.getMaxLifetime());
-        xaDataSource.setBorrowConnectionTimeout(payConfig.getBorrowConnectionTimeout());
-        xaDataSource.setLoginTimeout(payConfig.getLoginTimeout());
-        xaDataSource.setMaintenanceInterval(payConfig.getMaintenanceInterval());
-        xaDataSource.setMaxIdleTime(payConfig.getMaxIdleTime());
-        xaDataSource.setTestQuery(payConfig.getTestQuery());
-        xaDataSource.setXaDataSourceClassName(payConfig.getDriverClassName());
-        return xaDataSource;
+    @Bean()
+    public DataSource payDataSource(PayConfig payConfig) throws SQLException {
+        return DataSourceUtil.create(payConfig, "payDataSource");
     }
 
 
-    @Bean(name = "paySqlSessionFactory")
-    public SqlSessionFactory testSqlSessionFactory(@Qualifier("payDataSource") DataSource dataSource)
+    @Bean()
+    public SqlSessionFactory paySqlSessionFactory(@Qualifier("payDataSource") DataSource dataSource)
             throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
@@ -60,8 +42,8 @@ public class PayMybatisConfig {
     }
 
 
-    @Bean(name = "paySqlSessionTemplate")
-    public SqlSessionTemplate testSqlSessionTemplate(
+    @Bean()
+    public SqlSessionTemplate paySqlSessionTemplate(
             @Qualifier("paySqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }

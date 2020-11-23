@@ -1,6 +1,7 @@
 package com.huang.datasource.mybatis;
 
 import com.huang.datasource.config.OrderConfig;
+import com.huang.datasource.util.DataSourceUtil;
 import com.mysql.cj.jdbc.MysqlXADataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -26,33 +27,14 @@ import java.sql.SQLException;
 @MapperScan(basePackages = "com.huang.datasource.mapper.order", sqlSessionTemplateRef = "orderSqlSessionTemplate")
 public class OrderMybatisConfig {
     @Primary
-    @Bean(name = "orderDataSource")
-    public DataSource testDataSource(OrderConfig orderConfig) throws SQLException {
-        MysqlXADataSource mysqlXaDataSource = new MysqlXADataSource();
-        mysqlXaDataSource.setUrl(orderConfig.getUrl());
-        mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
-        mysqlXaDataSource.setPassword(orderConfig.getPassword());
-        mysqlXaDataSource.setUser(orderConfig.getUsername());
-        mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
-
-        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
-        xaDataSource.setXaDataSource(mysqlXaDataSource);
-        xaDataSource.setUniqueResourceName("orderDataSource");
-        xaDataSource.setMinPoolSize(orderConfig.getMinPoolSize());
-        xaDataSource.setMaxPoolSize(orderConfig.getMaxPoolSize());
-        xaDataSource.setMaxLifetime(orderConfig.getMaxLifetime());
-        xaDataSource.setBorrowConnectionTimeout(orderConfig.getBorrowConnectionTimeout());
-        xaDataSource.setLoginTimeout(orderConfig.getLoginTimeout());
-        xaDataSource.setMaintenanceInterval(orderConfig.getMaintenanceInterval());
-        xaDataSource.setMaxIdleTime(orderConfig.getMaxIdleTime());
-        xaDataSource.setTestQuery(orderConfig.getTestQuery());
-        xaDataSource.setXaDataSourceClassName(orderConfig.getDriverClassName());
-        return xaDataSource;
+    @Bean()
+    public DataSource orderDataSource(OrderConfig orderConfig) throws SQLException {
+        return DataSourceUtil.create(orderConfig, "orderDataSource");
     }
 
 
-    @Bean(name = "orderSqlSessionFactory")
-    public SqlSessionFactory testSqlSessionFactory(@Qualifier("orderDataSource") DataSource dataSource)
+    @Bean()
+    public SqlSessionFactory orderSqlSessionFactory(@Qualifier("orderDataSource") DataSource dataSource)
             throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
@@ -61,8 +43,8 @@ public class OrderMybatisConfig {
     }
 
 
-    @Bean(name = "orderSqlSessionTemplate")
-    public SqlSessionTemplate testSqlSessionTemplate(
+    @Bean()
+    public SqlSessionTemplate orderSqlSessionTemplate(
             @Qualifier("orderSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
