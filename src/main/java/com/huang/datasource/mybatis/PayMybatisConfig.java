@@ -26,11 +26,11 @@ import java.sql.SQLException;
 @Configuration
 @MapperScan(basePackages = "com.huang.datasource.mapper.pay", sqlSessionTemplateRef = "paySqlSessionTemplate")
 public class PayMybatisConfig {
+
     @Bean()
     public DataSource payDataSource(PayConfig payConfig) throws SQLException {
         return DataSourceUtil.create(payConfig, "payDataSource");
     }
-
 
     @Bean()
     public SqlSessionFactory paySqlSessionFactory(@Qualifier("payDataSource") DataSource dataSource)
@@ -40,7 +40,6 @@ public class PayMybatisConfig {
         bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));
         return bean.getObject();
     }
-
 
     @Bean()
     public SqlSessionTemplate paySqlSessionTemplate(
