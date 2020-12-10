@@ -21,6 +21,5 @@ public class BaseProperties {
     private int loginTimeout;
     private int maintenanceInterval;
     private int maxIdleTime;
-    private String testQuery;
     private String driverClassName;
 }
