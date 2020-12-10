@@ -1,6 +1,5 @@
 package com.huang.datasource.config;
 
-import com.huang.datasource.config.OrderProperties;
 import com.huang.datasource.util.DataSourceUtil;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;

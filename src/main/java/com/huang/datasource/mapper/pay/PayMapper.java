@@ -1,7 +1,6 @@
 package com.huang.datasource.mapper.pay;
 
 import com.huang.datasource.domain.Pay;
-import org.springframework.stereotype.Repository;
 
 /**
  * @Description:

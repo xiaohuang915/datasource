@@ -1,7 +1,6 @@
 package com.huang.datasource.mapper.order;
 
 import com.huang.datasource.domain.Order;
-import org.springframework.stereotype.Repository;
 
 /**
  * @Description:
