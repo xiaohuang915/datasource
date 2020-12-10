@@ -25,7 +25,7 @@ public class PayMybatisConfig {
 
     @Bean()
     public DataSource payDataSource(PayProperties payConfig) throws SQLException {
-        return DataSourceUtil.create(payConfig, "payDataSource");
+        return DataSourceUtil.create(payConfig);
     }
 
     @Bean()

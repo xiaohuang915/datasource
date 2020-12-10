@@ -13,8 +13,8 @@ import java.sql.SQLException;
  * @Date : 2020/11/23 17:20
  */
 public class DataSourceUtil {
-    
-    public static DataSource create(BaseProperties baseProperties, String resourceName) throws SQLException {
+
+    public static DataSource create(BaseProperties baseProperties) throws SQLException {
         MysqlXADataSource mysqlXaDataSource = new MysqlXADataSource();
         mysqlXaDataSource.setUrl(baseProperties.getUrl());
         mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
@@ -24,7 +24,6 @@ public class DataSourceUtil {
 
         AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
         xaDataSource.setXaDataSource(mysqlXaDataSource);
-        xaDataSource.setUniqueResourceName(resourceName);
         xaDataSource.setMinPoolSize(baseProperties.getMinPoolSize());
         xaDataSource.setMaxPoolSize(baseProperties.getMaxPoolSize());
         xaDataSource.setMaxLifetime(baseProperties.getMaxLifetime());

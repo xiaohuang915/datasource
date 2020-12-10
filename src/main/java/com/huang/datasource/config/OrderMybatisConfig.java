@@ -24,10 +24,10 @@ import java.sql.SQLException;
 @MapperScan(basePackages = "com.huang.datasource.mapper.order", sqlSessionTemplateRef = "orderSqlSessionTemplate")
 public class OrderMybatisConfig {
 
-    @Primary
     @Bean()
+    @Primary
     public DataSource orderDataSource(OrderProperties orderConfig) throws SQLException {
-        return DataSourceUtil.create(orderConfig, "orderDataSource");
+        return DataSourceUtil.create(orderConfig);
     }
 
     @Bean()
