@@ -12,8 +12,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @Author : pc.huang
  * @Date : 2020/11/23 15:27
  */
-@SpringBootTest(classes = DataApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = DataApplication.class)
 public class PaymentTest {
 
     @Autowired

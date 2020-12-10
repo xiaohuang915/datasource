@@ -18,14 +18,16 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class PaymentService {
 
-    private OrderMapper orderMapper;
     private PayMapper payMapper;
+    private OrderMapper orderMapper;
 
     @Transactional(rollbackFor = Exception.class)
     public void test() {
         Order order = new Order();
         order.setName("order");
         orderMapper.save(order);
+
+        System.out.println(1/0);
 
         Pay pay = new Pay();
         pay.setName("pay");
