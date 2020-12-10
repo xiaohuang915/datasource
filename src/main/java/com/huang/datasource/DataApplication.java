@@ -1,7 +1,7 @@
 package com.huang.datasource;
 
-import com.huang.datasource.config.OrderConfig;
-import com.huang.datasource.config.PayConfig;
+import com.huang.datasource.config.OrderProperties;
+import com.huang.datasource.config.PayProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -12,7 +12,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @Date : 2020/11/23 13:20
  */
 @SpringBootApplication
-@EnableConfigurationProperties({OrderConfig.class, PayConfig.class})
+@EnableConfigurationProperties({OrderProperties.class, PayProperties.class})
 public class DataApplication {
     public static void main(String[] args) {
         SpringApplication.run(DataApplication.class, args);

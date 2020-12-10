@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class BaseConfig {
+public class BaseProperties {
     private String url;
     private String username;
     private String password;

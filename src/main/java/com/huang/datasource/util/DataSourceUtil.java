@@ -1,6 +1,6 @@
 package com.huang.datasource.util;
 
-import com.huang.datasource.config.BaseConfig;
+import com.huang.datasource.config.BaseProperties;
 import com.mysql.cj.jdbc.MysqlXADataSource;
 import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 
@@ -14,26 +14,26 @@ import java.sql.SQLException;
  */
 public class DataSourceUtil {
     
-    public static DataSource create(BaseConfig baseConfig,String resourceName) throws SQLException {
+    public static DataSource create(BaseProperties baseProperties, String resourceName) throws SQLException {
         MysqlXADataSource mysqlXaDataSource = new MysqlXADataSource();
-        mysqlXaDataSource.setUrl(baseConfig.getUrl());
+        mysqlXaDataSource.setUrl(baseProperties.getUrl());
         mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
-        mysqlXaDataSource.setPassword(baseConfig.getPassword());
-        mysqlXaDataSource.setUser(baseConfig.getUsername());
+        mysqlXaDataSource.setPassword(baseProperties.getPassword());
+        mysqlXaDataSource.setUser(baseProperties.getUsername());
         mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
 
         AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
         xaDataSource.setXaDataSource(mysqlXaDataSource);
         xaDataSource.setUniqueResourceName(resourceName);
-        xaDataSource.setMinPoolSize(baseConfig.getMinPoolSize());
-        xaDataSource.setMaxPoolSize(baseConfig.getMaxPoolSize());
-        xaDataSource.setMaxLifetime(baseConfig.getMaxLifetime());
-        xaDataSource.setBorrowConnectionTimeout(baseConfig.getBorrowConnectionTimeout());
-        xaDataSource.setLoginTimeout(baseConfig.getLoginTimeout());
-        xaDataSource.setMaintenanceInterval(baseConfig.getMaintenanceInterval());
-        xaDataSource.setMaxIdleTime(baseConfig.getMaxIdleTime());
-        xaDataSource.setTestQuery(baseConfig.getTestQuery());
-        xaDataSource.setXaDataSourceClassName(baseConfig.getDriverClassName());
+        xaDataSource.setMinPoolSize(baseProperties.getMinPoolSize());
+        xaDataSource.setMaxPoolSize(baseProperties.getMaxPoolSize());
+        xaDataSource.setMaxLifetime(baseProperties.getMaxLifetime());
+        xaDataSource.setBorrowConnectionTimeout(baseProperties.getBorrowConnectionTimeout());
+        xaDataSource.setLoginTimeout(baseProperties.getLoginTimeout());
+        xaDataSource.setMaintenanceInterval(baseProperties.getMaintenanceInterval());
+        xaDataSource.setMaxIdleTime(baseProperties.getMaxIdleTime());
+        xaDataSource.setTestQuery(baseProperties.getTestQuery());
+        xaDataSource.setXaDataSourceClassName(baseProperties.getDriverClassName());
         return xaDataSource;
     }
 }

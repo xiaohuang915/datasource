@@ -3,7 +3,6 @@ package com.huang.datasource.config;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * @Description:
@@ -13,6 +12,6 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 @ConfigurationProperties("mysql.datasource.order")
-public class OrderConfig extends BaseConfig{
+public class OrderProperties extends BaseProperties {
 
 }

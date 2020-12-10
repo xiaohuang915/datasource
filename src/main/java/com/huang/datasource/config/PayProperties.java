@@ -12,6 +12,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties("mysql.datasource.pay")
-public class PayConfig extends BaseConfig{
+public class PayProperties extends BaseProperties {
 
 }
