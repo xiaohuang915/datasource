@@ -31,7 +31,6 @@ public class DataSourceUtil {
         xaDataSource.setLoginTimeout(baseProperties.getLoginTimeout());
         xaDataSource.setMaintenanceInterval(baseProperties.getMaintenanceInterval());
         xaDataSource.setMaxIdleTime(baseProperties.getMaxIdleTime());
-        xaDataSource.setTestQuery(baseProperties.getTestQuery());
         xaDataSource.setXaDataSourceClassName(baseProperties.getDriverClassName());
         return xaDataSource;
     }
